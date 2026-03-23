@@ -8,22 +8,89 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CI_JOB_NUMBER: 1
+    permissions:
+      pull-requests: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        uses: actions/setup-node@v4
         with:
           node-version-file: "package.json"
-      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
-      - name: Install in packages/excalidraw
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
         run: pnpm install
+      - name: Build packages/excalidraw
+        run: pnpm build:esm
         working-directory: packages/excalidraw
         env:
           CI: true
-      - uses: andresz1/size-limit-action@e7493a72a44b113341c0cf6186ab49c17c4b65c1 # v1.6.1
+      - name: Run size-limit
+        run: pnpm dlx size-limit --json > /tmp/size-pr.json
+        working-directory: packages/excalidraw
+      - name: Checkout master branch
+        uses: actions/checkout@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          build_script: build:esm
-          skip_step: install
-          directory: packages/excalidraw
+          ref: master
+      - name: Install dependencies (master)
+        run: pnpm install
+      - name: Build packages/excalidraw (master)
+        run: pnpm build:esm
+        working-directory: packages/excalidraw
+        env:
+          CI: true
+      - name: Run size-limit (master)
+        run: pnpm dlx size-limit --json > /tmp/size-master.json
+        working-directory: packages/excalidraw
+      - name: Comment size diff
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const pr = JSON.parse(fs.readFileSync('/tmp/size-pr.json', 'utf8'));
+            const master = JSON.parse(fs.readFileSync('/tmp/size-master.json', 'utf8'));
+
+            const fmt = (n) => n != null ? `${(n / 1024).toFixed(2)} KB` : 'N/A';
+            const diff = (a, b) => {
+              if (a == null || b == null) return '';
+              const d = a - b;
+              const pct = b !== 0 ? ((d / b) * 100).toFixed(1) : 'N/A';
+              return d >= 0 ? `+${fmt(d)} (+${pct}%)` : `${fmt(d)} (${pct}%)`;
+            };
+
+            const masterMap = Object.fromEntries(master.map(e => [e.name, e]));
+            const rows = pr.map(e => {
+              const m = masterMap[e.name] ?? {};
+              const passed = e.passed ? '✅' : '❌';
+              return `| ${passed} | ${e.name || '(main)'} | ${fmt(e.size)} | ${fmt(m.size)} | ${diff(e.size, m.size)} |`;
+            }).join('\n');
+
+            const body = `## Bundle Size Report
+
+            | Status | Name | PR | master | Diff |
+            |--------|------|----|--------|------|
+            ${rows}
+            `;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(c => c.body.includes('Bundle Size Report'));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
