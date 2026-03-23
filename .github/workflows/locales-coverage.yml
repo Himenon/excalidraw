@@ -19,9 +19,13 @@ jobs:
         with:
           node-version: 20.x
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Create report file
         run: |
-          yarn locales-coverage
+          pnpm locales-coverage
           FILE_CHANGED=$(git diff packages/excalidraw/locales/percentages.json)
           if [ ! -z "${FILE_CHANGED}" ]; then
             git config --global user.name 'Excalidraw Bot'

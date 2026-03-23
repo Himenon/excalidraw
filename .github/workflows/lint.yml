@@ -14,9 +14,13 @@ jobs:
         with:
           node-version: 20.x
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Install and lint
         run: |
-          yarn install
-          yarn test:other
-          yarn test:code
-          yarn test:typecheck
+          pnpm install
+          pnpm test:other
+          pnpm test:code
+          pnpm test:typecheck

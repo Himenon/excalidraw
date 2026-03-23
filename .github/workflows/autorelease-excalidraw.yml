@@ -16,6 +16,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 20.x
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
       - name: Set up publish access
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
@@ -23,5 +26,5 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Auto release
         run: |
-          yarn add @actions/core -W
-          yarn release --tag=next --non-interactive
+          pnpm add @actions/core -w
+          pnpm release --tag=next --non-interactive
