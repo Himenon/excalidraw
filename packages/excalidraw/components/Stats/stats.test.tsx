@@ -526,10 +526,13 @@ describe("stats for multiple elements", () => {
     mouse.up(125, 145);
 
     API.setAppState({
-      selectedElementIds: h.elements.reduce((acc, el) => {
-        acc[el.id] = true;
-        return acc;
-      }, {} as Record<string, true>),
+      selectedElementIds: h.elements.reduce(
+        (acc, el) => {
+          acc[el.id] = true;
+          return acc;
+        },
+        {} as Record<string, true>,
+      ),
     });
 
     elementStats = stats?.querySelector("#elementStats");
@@ -584,10 +587,13 @@ describe("stats for multiple elements", () => {
     const rectangle = h.elements.find((el) => el.type === "rectangle");
 
     API.setAppState({
-      selectedElementIds: h.elements.reduce((acc, el) => {
-        acc[el.id] = true;
-        return acc;
-      }, {} as Record<string, true>),
+      selectedElementIds: h.elements.reduce(
+        (acc, el) => {
+          acc[el.id] = true;
+          return acc;
+        },
+        {} as Record<string, true>,
+      ),
     });
 
     elementStats = stats?.querySelector("#elementStats");

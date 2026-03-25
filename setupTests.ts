@@ -82,9 +82,10 @@ Object.defineProperty(window, "EXCALIDRAW_ASSET_PATH", {
 vi.mock(
   "./packages/excalidraw/fonts/ExcalidrawFontFace",
   async (importOriginal) => {
-    const mod = await importOriginal<
-      typeof import("./packages/excalidraw/fonts/ExcalidrawFontFace")
-    >();
+    const mod =
+      await importOriginal<
+        typeof import("./packages/excalidraw/fonts/ExcalidrawFontFace")
+      >();
     const ExcalidrawFontFaceImpl = mod.ExcalidrawFontFace;
 
     return {

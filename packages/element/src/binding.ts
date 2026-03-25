@@ -406,7 +406,7 @@ const bindingStrategyForNewSimpleArrowEndpointDragging = (
         element: otherElement,
         focusPoint: shiftKey
           ? elementCenterPoint(otherElement, elementsMap)
-          : origin ?? pointFrom<GlobalPoint>(arrow.x, arrow.y),
+          : (origin ?? pointFrom<GlobalPoint>(arrow.x, arrow.y)),
       };
 
       // We are hovering another element with the end point
@@ -747,13 +747,13 @@ const getBindingStrategyForDraggingBindingElementEndpoints_simple = (
         focusPoint: startDragged
           ? globalPoint
           : // NOTE: Can only affect the start point because new arrows always drag the end point
-          opts?.newArrow
-          ? appState.selectedLinearElement!.initialState.origin!
-          : LinearElementEditor.getPointAtIndexGlobalCoordinates(
-              arrow,
-              0,
-              elementsMap,
-            ), // startFixedPoint,
+            opts?.newArrow
+            ? appState.selectedLinearElement!.initialState.origin!
+            : LinearElementEditor.getPointAtIndexGlobalCoordinates(
+                arrow,
+                0,
+                elementsMap,
+              ), // startFixedPoint,
       },
       end: {
         mode: "inside",
@@ -846,21 +846,21 @@ const getBindingStrategyForDraggingBindingElementEndpoints_simple = (
           focusPoint: appState.selectedLinearElement.initialState.altFocusPoint,
         }
       : opts?.angleLocked && otherBindableElement
-      ? {
-          mode: "orbit",
-          element: otherBindableElement,
-          focusPoint:
-            projectFixedPointOntoDiagonal(
-              arrow,
-              otherEndpoint,
-              otherBindableElement,
-              startDragged ? "end" : "start",
-              elementsMap,
-              appState.zoom,
-              appState.isMidpointSnappingEnabled,
-            ) || otherEndpoint,
-        }
-      : { mode: undefined }
+        ? {
+            mode: "orbit",
+            element: otherBindableElement,
+            focusPoint:
+              projectFixedPointOntoDiagonal(
+                arrow,
+                otherEndpoint,
+                otherBindableElement,
+                startDragged ? "end" : "start",
+                elementsMap,
+                appState.zoom,
+                appState.isMidpointSnappingEnabled,
+              ) || otherEndpoint,
+          }
+        : { mode: undefined }
     : { mode: undefined };
 
   return {
@@ -1873,8 +1873,8 @@ export const updateBoundPoint = (
     return LinearElementEditor.createPointAt(
       arrow,
       elementsMap,
-      arrowTooShort ? focusPoint[0] : outlinePoint?.[0] ?? focusPoint[0],
-      arrowTooShort ? focusPoint[1] : outlinePoint?.[1] ?? focusPoint[1],
+      arrowTooShort ? focusPoint[0] : (outlinePoint?.[0] ?? focusPoint[0]),
+      arrowTooShort ? focusPoint[1] : (outlinePoint?.[1] ?? focusPoint[1]),
       null,
     );
   }
@@ -2089,9 +2089,9 @@ const newBoundElements = (
   nextBoundElements.push(
     ...elementsToAdd.map(
       (x) =>
-        ({ id: x.id, type: x.type } as
+        ({ id: x.id, type: x.type }) as
           | ExcalidrawArrowElement
-          | ExcalidrawTextElement),
+          | ExcalidrawTextElement,
     ),
   );
 

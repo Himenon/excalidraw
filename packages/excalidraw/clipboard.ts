@@ -52,7 +52,7 @@ export interface ClipboardData {
   programmaticAPI?: boolean;
 }
 
-type AllowedPasteMimeTypes = typeof ALLOWED_PASTE_MIME_TYPES[number];
+type AllowedPasteMimeTypes = (typeof ALLOWED_PASTE_MIME_TYPES)[number];
 
 type ParsedClipboardEventTextData =
   | { type: "text"; value: string }
@@ -230,7 +230,7 @@ function parseHTMLTree(el: ChildNode) {
 }
 
 const maybeParseHTMLDataItem = (
-  dataItem: ParsedDataTransferItemType<typeof MIME_TYPES["html"]>,
+  dataItem: ParsedDataTransferItemType<(typeof MIME_TYPES)["html"]>,
 ): { type: "mixedContent"; value: PastedMixedContent } | null => {
   const html = dataItem.value;
 

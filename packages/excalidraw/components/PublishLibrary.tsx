@@ -388,7 +388,7 @@ const PublishLibrary = ({
                 <a
                   href="https://libraries.excalidraw.com"
                   target="_blank"
-                  rel="noopener"
+                  rel="noreferrer"
                 >
                   {el}
                 </a>

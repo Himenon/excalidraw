@@ -18,7 +18,6 @@ const DropdownMenuItemLink = ({
   onSelect,
   className = "",
   selected,
-  rel = "noopener",
   ...rest
 }: {
   href: string;
@@ -28,8 +27,7 @@ const DropdownMenuItemLink = ({
   className?: string;
   selected?: boolean;
   onSelect?: (event: Event) => void;
-  rel?: string;
-} & React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+} & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "rel">) => {
   const handleSelect = useHandleDropdownMenuItemSelect(onSelect);
 
   return (
@@ -43,7 +41,7 @@ const DropdownMenuItemLink = ({
         {...rest}
         href={href}
         target="_blank"
-        rel={`noopener ${rel}`}
+        rel="noreferrer"
         className={getDropdownMenuItemClassName(className, selected)}
         title={rest.title ?? rest["aria-label"]}
       >
