@@ -105,8 +105,7 @@ const CJK = {
    *      ↑ BREAK BEFORE "「"
    *         ↑ BREAK AFTER "」"
    */
-  // eslint-disable-next-line prettier/prettier
-  OPENING:/（［｛〈《｟｢「『【〖〔〘〚＜〝/u,
+  OPENING: /（［｛〈《｟｢「『【〖〔〘〚＜〝/u,
   CLOSING: /）］｝〉》｠｣」』】〗〕〙〛＞。．，、〟‥？！：；・〜〞/u,
   /**
    * Currency symbols break before, not after

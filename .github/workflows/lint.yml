@@ -25,3 +25,5 @@ jobs:
           pnpm test:other
           pnpm test:code
           pnpm test:typecheck
+        env:
+          CI: true

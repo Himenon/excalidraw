@@ -211,12 +211,12 @@ const Panel = ({
           (element) => element.type === genericElements[0].type,
         )
       : conversionType === "linear"
-      ? linearElements.every(
-          (element) =>
-            getLinearElementSubType(element) ===
-            getLinearElementSubType(linearElements[0]),
-        )
-      : false;
+        ? linearElements.every(
+            (element) =>
+              getLinearElementSubType(element) ===
+              getLinearElementSubType(linearElements[0]),
+          )
+        : false;
 
   const [panelPosition, setPanelPosition] = useState({ x: 0, y: 0 });
   const positionRef = useRef("");
@@ -228,8 +228,8 @@ const Panel = ({
     );
     const newPositionRef = `
       ${app.state.scrollX}${app.state.scrollY}${app.state.offsetTop}${
-      app.state.offsetLeft
-    }${app.state.zoom.value}${elements.map((el) => el.id).join(",")}`;
+        app.state.offsetLeft
+      }${app.state.zoom.value}${elements.map((el) => el.id).join(",")}`;
 
     if (newPositionRef === positionRef.current) {
       return;
@@ -299,12 +299,12 @@ const Panel = ({
           ["elbowArrow", elbowArrowIcon],
         ]
       : conversionType === "generic"
-      ? [
-          ["rectangle", RectangleIcon],
-          ["diamond", DiamondIcon],
-          ["ellipse", EllipseIcon],
-        ]
-      : [];
+        ? [
+            ["rectangle", RectangleIcon],
+            ["diamond", DiamondIcon],
+            ["ellipse", EllipseIcon],
+          ]
+        : [];
 
   return (
     <div
@@ -748,7 +748,6 @@ const convertLineToElbow = (line: ExcalidrawLinearElement): LocalPoint[] => {
           }
         } else {
           // … absorb leg 1 – slide the whole first leg onto *b-c* axis
-          // eslint-disable-next-line no-lonely-if
           if (v2) {
             for (
               let k = clean.length - 1;

@@ -340,26 +340,26 @@ The `device` has the following `attributes`, some grouped into `viewport` and `e
 
 The `EditorInterface` object has the following properties:
 
-| Name | Type | Description |
-| --- | --- | --- | --- | --- | --- |
-| `formFactor` | `'phone' | 'tablet' | 'desktop'` | Indicates the device type based on screen size |
-| `desktopUIMode` | `'compact' | 'full'` | UI mode for desktop form factor |
-| `userAgent.raw` | `string` | Raw user agent string |
-| `userAgent.isMobileDevice` | `boolean` | True if device is mobile |
-| `userAgent.platform` | `'ios' | 'android' | 'other' | 'unknown'` | Device platform |
-| `isTouchScreen` | `boolean` | True if touch events are detected |
-| `canFitSidebar` | `boolean` | True if sidebar can fit in the viewport |
-| `isLandscape` | `boolean` | True if viewport is in landscape mode |
+| Name                       | Type       | Description                             |
+| -------------------------- | ---------- | --------------------------------------- | ------------------------------- | ---------------------------------------------- | --------------- |
+| `formFactor`               | `'phone'   | 'tablet'                                | 'desktop'`                      | Indicates the device type based on screen size |
+| `desktopUIMode`            | `'compact' | 'full'`                                 | UI mode for desktop form factor |
+| `userAgent.raw`            | `string`   | Raw user agent string                   |
+| `userAgent.isMobileDevice` | `boolean`  | True if device is mobile                |
+| `userAgent.platform`       | `'ios'     | 'android'                               | 'other'                         | 'unknown'`                                     | Device platform |
+| `isTouchScreen`            | `boolean`  | True if touch events are detected       |
+| `canFitSidebar`            | `boolean`  | True if sidebar can fit in the viewport |
+| `isLandscape`              | `boolean`  | True if viewport is in landscape mode   |
 
 ### i18n
 
 To help with localization, we export the following.
 
-| name | type |
-| --- | --- |
-| `defaultLang` | `string` |
-| `languages` | [`Language[]`](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/i18n.ts#L15) |
-| `useI18n` | [`() => { langCode, t }`](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/i18n.ts#L15) |
+| name          | type                                                                                                            |
+| ------------- | --------------------------------------------------------------------------------------------------------------- |
+| `defaultLang` | `string`                                                                                                        |
+| `languages`   | [`Language[]`](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/i18n.ts#L15)            |
+| `useI18n`     | [`() => { langCode, t }`](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/i18n.ts#L15) |
 
 ```js
 import { defaultLang, languages, useI18n } from "@excalidraw/excalidraw";

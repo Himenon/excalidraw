@@ -1,0 +1,37 @@
+{
+  "plugins": ["react", "import"],
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "name": "jotai",
+        "message": "Do not import from \"jotai\" directly. Use our app-specific modules (\"editor-jotai\" or \"app-jotai\")."
+      }
+    ],
+    "react/jsx-no-target-blank": "error"
+  },
+  "ignorePatterns": [
+    "node_modules/",
+    "build/",
+    "dist/",
+    "dev-dist/",
+    "coverage/",
+    "examples/**/public",
+    "packages/excalidraw/types"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "packages/excalidraw/editor-jotai.ts",
+        "excalidraw-app/app-jotai.ts"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ]
+}

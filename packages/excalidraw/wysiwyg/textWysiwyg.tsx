@@ -495,8 +495,8 @@ export const textWysiwyg = ({
       layout.textAlign === "center"
         ? (layout.width - lineWidth) / 2
         : layout.textAlign === "right"
-        ? layout.width - lineWidth
-        : 0;
+          ? layout.width - lineWidth
+          : 0;
     const relativeX = localX - lineStartX;
 
     if (!line.text) {
@@ -749,8 +749,9 @@ export const textWysiwyg = ({
     let { selectionStart, selectionEnd, value } = editable;
 
     // chars before selectionStart on the same line
-    const startOffset = value.slice(0, selectionStart).match(/[^\n]*$/)![0]
-      .length;
+    const startOffset = value
+      .slice(0, selectionStart)
+      .match(/[^\n]*$/)![0].length;
     // put caret at the start of the line
     selectionStart = selectionStart - startOffset;
 

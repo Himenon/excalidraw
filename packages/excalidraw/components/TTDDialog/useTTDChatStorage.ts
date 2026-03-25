@@ -77,7 +77,6 @@ export const useTTDChatStorage = ({
   // INITIAL LOAD
   useEffect(() => {
     loadChats();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const saveCurrentChat = useCallback(async () => {
@@ -123,7 +122,7 @@ export const useTTDChatStorage = ({
       currentPrompt: chatHistory.currentPrompt,
       timestamp: messagesChanged
         ? Date.now()
-        : existingChat?.timestamp ?? Date.now(),
+        : (existingChat?.timestamp ?? Date.now()),
     };
 
     const updatedChats = [
@@ -147,7 +146,6 @@ export const useTTDChatStorage = ({
     if (!lastMessageInHistory?.isGenerating) {
       saveCurrentChat();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     chatHistory.messages?.length,
     lastMessageInHistory?.id,
