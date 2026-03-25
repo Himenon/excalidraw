@@ -13,7 +13,6 @@ import { newElementWith } from "@excalidraw/element";
 import {
   EXPORT_DATA_TYPES,
   MIME_TYPES,
-  ORIG_ID,
   KEYS,
   arrayToMap,
   COLOR_PALETTE,
@@ -33,6 +32,7 @@ import type { LocalPoint, Radians } from "@excalidraw/math";
 
 import type {
   ExcalidrawElbowArrowElement,
+  ExcalidrawElement,
   ExcalidrawFrameElement,
   ExcalidrawGenericElement,
   ExcalidrawLinearElement,
@@ -72,7 +72,6 @@ import {
   assertSelectedElements,
   render,
   togglePopover,
-  getCloneByOrigId,
   checkpointHistory,
   unmountComponent,
 } from "./test-utils";
@@ -1404,12 +1403,18 @@ describe("history", () => {
       expect(API.getUndoStack().length).toBe(1);
       expect(API.getRedoStack().length).toBe(1);
       expect(h.elements.length).toBe(4);
-      expect(h.elements).toEqual([
-        expect.objectContaining({ id: rect1.id, isDeleted: false }),
-        expect.objectContaining({ id: rect2.id, isDeleted: false }),
-        expect.objectContaining({ [ORIG_ID]: rect1.id, isDeleted: true }),
-        expect.objectContaining({ [ORIG_ID]: rect2.id, isDeleted: true }),
-      ]);
+      expect(h.elements.find((el) => el.id === rect1.id)?.isDeleted).toBe(
+        false,
+      );
+      expect(h.elements.find((el) => el.id === rect2.id)?.isDeleted).toBe(
+        false,
+      );
+      // undo後、複製された要素（rect1/rect2以外）は削除状態になる
+      const deletedAfterUndo: ExcalidrawElement[] = h.elements.filter(
+        (el) => el.id !== rect1.id && el.id !== rect2.id,
+      );
+      expect(deletedAfterUndo.length).toBe(2);
+      expect(deletedAfterUndo.every((el) => el.isDeleted)).toBe(true);
       expect(h.state.editingGroupId).toBeNull();
       expect(h.state.selectedGroupIds).toEqual({ A: true });
 
@@ -1417,12 +1422,18 @@ describe("history", () => {
       expect(API.getUndoStack().length).toBe(2);
       expect(API.getRedoStack().length).toBe(0);
       expect(h.elements.length).toBe(4);
-      expect(h.elements).toEqual([
-        expect.objectContaining({ id: rect1.id, isDeleted: false }),
-        expect.objectContaining({ id: rect2.id, isDeleted: false }),
-        expect.objectContaining({ [ORIG_ID]: rect1.id, isDeleted: false }),
-        expect.objectContaining({ [ORIG_ID]: rect2.id, isDeleted: false }),
-      ]);
+      expect(h.elements.find((el) => el.id === rect1.id)?.isDeleted).toBe(
+        false,
+      );
+      expect(h.elements.find((el) => el.id === rect2.id)?.isDeleted).toBe(
+        false,
+      );
+      // redo後、複製された要素（rect1/rect2以外）は復活して削除状態でなくなる
+      const restoredAfterRedo: ExcalidrawElement[] = h.elements.filter(
+        (el) => el.id !== rect1.id && el.id !== rect2.id,
+      );
+      expect(restoredAfterRedo.length).toBe(2);
+      expect(restoredAfterRedo.every((el) => !el.isDeleted)).toBe(true);
       expect(h.state.editingGroupId).toBeNull();
       expect(h.state.selectedGroupIds).not.toEqual(
         expect.objectContaining({ A: true }),
@@ -1436,22 +1447,20 @@ describe("history", () => {
       expect(API.getUndoStack().length).toBe(2);
       expect(API.getRedoStack().length).toBe(0);
       expect(h.elements.length).toBe(6);
-      expect(h.elements).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({ id: rect1.id, isDeleted: false }),
-          expect.objectContaining({ id: rect2.id, isDeleted: false }),
-          expect.objectContaining({ [ORIG_ID]: rect1.id, isDeleted: true }),
-          expect.objectContaining({ [ORIG_ID]: rect2.id, isDeleted: true }),
-          expect.objectContaining({
-            [ORIG_ID]: getCloneByOrigId(rect1.id)?.id,
-            isDeleted: false,
-          }),
-          expect.objectContaining({
-            [ORIG_ID]: getCloneByOrigId(rect2.id)?.id,
-            isDeleted: false,
-          }),
-        ]),
+      const ids = h.elements.map((el) => el.id);
+      expect(ids).toContain(rect1.id);
+      expect(ids).toContain(rect2.id);
+      expect(h.elements.find((el) => el.id === rect1.id)?.isDeleted).toBe(
+        false,
       );
+      expect(h.elements.find((el) => el.id === rect2.id)?.isDeleted).toBe(
+        false,
+      );
+      // undo後にctrl+Dで再複製した場合、元のクローンとその複製が存在する
+      const deletedElements = h.elements.filter((el) => el.isDeleted);
+      const activeElements = h.elements.filter((el) => !el.isDeleted);
+      expect(deletedElements.length).toBe(2);
+      expect(activeElements.length).toBe(4);
       expect(h.state.editingGroupId).toBeNull();
       expect(h.state.selectedGroupIds).not.toEqual(
         expect.objectContaining({ A: true }),

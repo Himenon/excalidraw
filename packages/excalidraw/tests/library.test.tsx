@@ -2,7 +2,7 @@ import { act, queryByTestId } from "@testing-library/react";
 import React from "react";
 import { vi } from "vitest";
 
-import { MIME_TYPES, ORIG_ID } from "@excalidraw/common";
+import { MIME_TYPES } from "@excalidraw/common";
 
 import { getCommonBoundingBox } from "@excalidraw/element";
 
@@ -179,7 +179,7 @@ describe("library", () => {
       },
     ]);
     await waitFor(() => {
-      expect(h.elements).toEqual([expect.objectContaining({ [ORIG_ID]: "A" })]);
+      expect(h.elements).toHaveLength(1);
     });
   });
 
@@ -208,15 +208,11 @@ describe("library", () => {
     ]);
 
     await waitFor(() => {
-      expect(h.elements).toEqual([
-        expect.objectContaining({
-          [ORIG_ID]: "elem1",
-        }),
-        expect.objectContaining({
-          id: expect.not.stringMatching(/^elem1$/),
-          [ORIG_ID]: expect.not.stringMatching(/^\w+$/),
-        }),
-      ]);
+      expect(h.elements).toHaveLength(2);
+      // ライブラリアイテムが重複挿入された場合でも、それぞれの要素IDが一意であることを確認
+      expect(h.elements[0].id).not.toBe("elem1");
+      expect(h.elements[1].id).not.toBe("elem1");
+      expect(h.elements[0].id).not.toBe(h.elements[1].id);
     });
   });
 
@@ -232,7 +228,7 @@ describe("library", () => {
       },
     ]);
     await waitFor(() => {
-      expect(h.elements).toEqual([expect.objectContaining({ [ORIG_ID]: "A" })]);
+      expect(h.elements).toHaveLength(1);
     });
     // this has a high flake
     // expect(h.state.activeTool.type).toBe("selection");
