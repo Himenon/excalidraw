@@ -63,12 +63,12 @@ export default defineConfig({
       // Since v2, it ignores empty lines by default and we need to disable it as it affects the coverage
       // Additionally the thresholds also needs to be updated slightly as a result of this change
       ignoreEmptyLines: false,
-      // thresholds: {
-      //   lines: 60,
-      //   branches: 70,
-      //   functions: 63,
-      //   statements: 60,
-      // },
+      thresholds: {
+        lines: 50,
+        branches: 50,
+        functions: 50,
+        statements: 50,
+      },
     },
   },
 });
