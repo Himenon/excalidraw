@@ -86,7 +86,6 @@ const hashSelectionOpts = (
   type HashableKeys = Omit<typeof opts, "selectedElementIds" | "elements">;
 
   // just to ensure we're hashing all expected keys
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type _ = Assert<
     SameType<
       Required<HashableKeys>,

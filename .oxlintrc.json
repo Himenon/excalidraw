@@ -22,5 +22,16 @@
     "coverage/",
     "examples/**/public",
     "packages/excalidraw/types"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "packages/excalidraw/editor-jotai.ts",
+        "excalidraw-app/app-jotai.ts"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
   ]
 }

@@ -138,7 +138,6 @@ export const FontPickerList = React.memo(
     const sceneFamilies = useMemo(
       () => new Set(fonts.getSceneFamilies()),
       // cache per selected font family, so hover re-render won't mess it up
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       [selectedFontFamily],
     );
 
@@ -258,7 +257,6 @@ export const FontPickerList = React.memo(
       return () => {
         onClose();
       };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const sceneFilteredFonts = useMemo(

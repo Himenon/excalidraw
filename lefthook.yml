@@ -6,5 +6,5 @@ pre-commit:
       glob: "*.{ts,tsx,js,jsx,json,css,scss,md,html,yml}"
 
     - name: lint
-      run: pnpm oxlint --react-plugin --import-plugin {staged_files}
+      run: pnpm oxlint --react-plugin --import-plugin --quiet {staged_files}
       glob: "*.{ts,tsx,js}"

@@ -30,7 +30,6 @@ for (const { pkg, src, dest } of wasmModules) {
   const licenseContent = fs.readFileSync(licensePath, "utf-8") || "";
   const base64 = fs.readFileSync(sourcePath, "base64");
   const content = `// GENERATED CODE -- DO NOT EDIT!
-/* eslint-disable */
 // @ts-nocheck
 
 /**

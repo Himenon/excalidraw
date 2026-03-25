@@ -31,7 +31,6 @@ const DropdownMenuItemLink = ({
   const handleSelect = useHandleDropdownMenuItemSelect(onSelect);
 
   return (
-    // eslint-disable-next-line react/jsx-no-target-blank
     <DropdownMenuPrimitive.Item
       className="radix-menu-item"
       onSelect={handleSelect}

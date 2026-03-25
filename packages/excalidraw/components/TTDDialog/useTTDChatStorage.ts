@@ -77,7 +77,6 @@ export const useTTDChatStorage = ({
   // INITIAL LOAD
   useEffect(() => {
     loadChats();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const saveCurrentChat = useCallback(async () => {
@@ -147,7 +146,6 @@ export const useTTDChatStorage = ({
     if (!lastMessageInHistory?.isGenerating) {
       saveCurrentChat();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     chatHistory.messages?.length,
     lastMessageInHistory?.id,

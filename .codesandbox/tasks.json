@@ -19,11 +19,6 @@
       "command": "pnpm fix",
       "runAtStart": false
     },
-    "prettier": {
-      "name": "Prettify",
-      "command": "pnpm prettier",
-      "runAtStart": false
-    },
     "start": {
       "name": "Start Excalidraw",
       "command": "pnpm start",
