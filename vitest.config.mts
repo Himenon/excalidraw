@@ -4,6 +4,7 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   resolve: {
+    conditions: ["source", "development", "module", "import"],
     alias: [
       {
         find: /^@excalidraw\/common$/,
