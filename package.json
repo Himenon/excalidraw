@@ -3,7 +3,6 @@
   "private": true,
   "homepage": ".",
   "scripts": {
-    "build-node": "node ./scripts/build-node.js",
     "build:app:docker": "pnpm --filter excalidraw-app build:app:docker",
     "build:app": "pnpm --filter excalidraw-app build:app",
     "build:common": "pnpm --filter @excalidraw/common build:esm",
@@ -60,7 +59,6 @@
     "oxfmt": "0.42.0",
     "oxlint": "1.57.0",
     "pepjs": "0.5.3",
-    "rewire": "6.0.0",
     "rimraf": "^5.0.0",
     "typescript": "6.0.2",
     "vite": "8.0.2",
