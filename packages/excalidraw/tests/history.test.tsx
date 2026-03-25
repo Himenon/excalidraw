@@ -1403,8 +1403,12 @@ describe("history", () => {
       expect(API.getUndoStack().length).toBe(1);
       expect(API.getRedoStack().length).toBe(1);
       expect(h.elements.length).toBe(4);
-      expect(h.elements.find((el) => el.id === rect1.id)?.isDeleted).toBe(false);
-      expect(h.elements.find((el) => el.id === rect2.id)?.isDeleted).toBe(false);
+      expect(h.elements.find((el) => el.id === rect1.id)?.isDeleted).toBe(
+        false,
+      );
+      expect(h.elements.find((el) => el.id === rect2.id)?.isDeleted).toBe(
+        false,
+      );
       // undo後、複製された要素（rect1/rect2以外）は削除状態になる
       const deletedAfterUndo: ExcalidrawElement[] = h.elements.filter(
         (el) => el.id !== rect1.id && el.id !== rect2.id,
@@ -1418,8 +1422,12 @@ describe("history", () => {
       expect(API.getUndoStack().length).toBe(2);
       expect(API.getRedoStack().length).toBe(0);
       expect(h.elements.length).toBe(4);
-      expect(h.elements.find((el) => el.id === rect1.id)?.isDeleted).toBe(false);
-      expect(h.elements.find((el) => el.id === rect2.id)?.isDeleted).toBe(false);
+      expect(h.elements.find((el) => el.id === rect1.id)?.isDeleted).toBe(
+        false,
+      );
+      expect(h.elements.find((el) => el.id === rect2.id)?.isDeleted).toBe(
+        false,
+      );
       // redo後、複製された要素（rect1/rect2以外）は復活して削除状態でなくなる
       const restoredAfterRedo: ExcalidrawElement[] = h.elements.filter(
         (el) => el.id !== rect1.id && el.id !== rect2.id,
@@ -1442,8 +1450,12 @@ describe("history", () => {
       const ids = h.elements.map((el) => el.id);
       expect(ids).toContain(rect1.id);
       expect(ids).toContain(rect2.id);
-      expect(h.elements.find((el) => el.id === rect1.id)?.isDeleted).toBe(false);
-      expect(h.elements.find((el) => el.id === rect2.id)?.isDeleted).toBe(false);
+      expect(h.elements.find((el) => el.id === rect1.id)?.isDeleted).toBe(
+        false,
+      );
+      expect(h.elements.find((el) => el.id === rect2.id)?.isDeleted).toBe(
+        false,
+      );
       // undo後にctrl+Dで再複製した場合、元のクローンとその複製が存在する
       const deletedElements = h.elements.filter((el) => el.isDeleted);
       const activeElements = h.elements.filter((el) => !el.isDeleted);
