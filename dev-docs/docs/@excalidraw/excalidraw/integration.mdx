@@ -58,74 +58,71 @@ If you are using `pages router` then importing the wrapper dynamically would wor
 <Tabs>
   <TabItem value="Excalidraw Wrapper" label="Excalidraw Wrapper" >
 
-  ```jsx showLineNumbers
-  "use client";
-  import { Excalidraw, convertToExcalidrawElements } from "@excalidraw/excalidraw";
+```jsx showLineNumbers
+"use client";
+import { Excalidraw, convertToExcalidrawElements } from "@excalidraw/excalidraw";
 
-  import "@excalidraw/excalidraw/index.css";
+import "@excalidraw/excalidraw/index.css";
 
-  const ExcalidrawWrapper: React.FC = () => {
-    console.info(convertToExcalidrawElements([{
-      type: "rectangle",
-      id: "rect-1",
-      width: 186.47265625,
-      height: 141.9765625,
-    },]));
-    return (
-      <div style={{height:"500px", width:"500px"}}>
-        <Excalidraw />
-      </div>
-    );
-  };
-  export default ExcalidrawWrapper;
-  ```
+const ExcalidrawWrapper: React.FC = () => {
+  console.info(convertToExcalidrawElements([{
+    type: "rectangle",
+    id: "rect-1",
+    width: 186.47265625,
+    height: 141.9765625,
+  },]));
+  return (
+    <div style={{height:"500px", width:"500px"}}>
+      <Excalidraw />
+    </div>
+  );
+};
+export default ExcalidrawWrapper;
+```
 
   </TabItem>
 
   <TabItem value="pages" label="Pages router">
 
-  ```jsx showLineNumbers
-  import dynamic from "next/dynamic";
+```jsx showLineNumbers
+import dynamic from "next/dynamic";
 
-  // Since client components get prerenderd on server as well hence importing
-  // the excalidraw stuff dynamically with ssr false
+// Since client components get prerenderd on server as well hence importing
+// the excalidraw stuff dynamically with ssr false
 
-  const ExcalidrawWrapper = dynamic(
-    async () => (await import("../excalidrawWrapper")).default,
-    {
-      ssr: false,
-    },
-  );
+const ExcalidrawWrapper = dynamic(
+  async () => (await import("../excalidrawWrapper")).default,
+  {
+    ssr: false,
+  },
+);
 
-  export default function Page() {
-    return (
-      <ExcalidrawWrapper />
-    );
-  }
-  ```
+export default function Page() {
+  return <ExcalidrawWrapper />;
+}
+```
+
   </TabItem>
 
   <TabItem value="app" label="App router">
 
-  ```jsx showLineNumbers
-  import dynamic from "next/dynamic";
+```jsx showLineNumbers
+import dynamic from "next/dynamic";
 
-  // Since client components get prerenderd on server as well hence importing
-  // the excalidraw stuff dynamically with ssr false
+// Since client components get prerenderd on server as well hence importing
+// the excalidraw stuff dynamically with ssr false
 
-  const ExcalidrawWrapper = dynamic(
-    async () => (await import("../excalidrawWrapper")).default,
-    {
-      ssr: false,
-    },
-  );
+const ExcalidrawWrapper = dynamic(
+  async () => (await import("../excalidrawWrapper")).default,
+  {
+    ssr: false,
+  },
+);
 
-  export default function Page() {
-    return (
-      <ExcalidrawWrapper />
-    );
-  }
-  ```
+export default function Page() {
+  return <ExcalidrawWrapper />;
+}
+```
 
   </TabItem>
 </Tabs>
@@ -154,6 +151,7 @@ Since Vite removes env variables by default, you can update the vite config to e
     "process.env.IS_PREACT": JSON.stringify("true"),
   },
 ```
+
 :::
 
 ## Browser
@@ -180,15 +178,16 @@ import TabItem from "@theme/TabItem";
     />
     <link rel="stylesheet" href="./index.css" />
     <script>
-    	window.EXCALIDRAW_ASSET_PATH = "https://esm.sh/@excalidraw/excalidraw@0.18.0/dist/prod/";
-		</script>
+      window.EXCALIDRAW_ASSET_PATH =
+        "https://esm.sh/@excalidraw/excalidraw@0.18.0/dist/prod/";
+    </script>
     <script type="importmap">
       {
         "imports": {
           "react": "https://esm.sh/react@19.0.0",
           "react/jsx-runtime": "https://esm.sh/react@19.0.0/jsx-runtime",
           "react-dom": "https://esm.sh/react-dom@19.0.0"
-          }
+        }
       }
     </script>
   </head>
@@ -208,9 +207,9 @@ import TabItem from "@theme/TabItem";
 
 ```js showLineNumbers
 // See https://www.npmjs.com/package/@excalidraw/excalidraw documentation.
-import * as ExcalidrawLib from 'https://esm.sh/@excalidraw/excalidraw@0.18.0/dist/dev/index.js?external=react,react-dom';
+import * as ExcalidrawLib from "https://esm.sh/@excalidraw/excalidraw@0.18.0/dist/dev/index.js?external=react,react-dom";
 import React from "https://esm.sh/react@19.0.0";
-import ReactDOM from "https://esm.sh/react-dom@19.0.0"
+import ReactDOM from "https://esm.sh/react-dom@19.0.0";
 
 window.ExcalidrawLib = ExcalidrawLib;
 console.log("Excalidraw library", ExcalidrawLib);

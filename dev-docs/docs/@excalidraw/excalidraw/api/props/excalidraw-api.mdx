@@ -13,34 +13,34 @@ Once the callback is triggered, you will need to store the api in state to acces
 ```jsx showLineNumbers
 export default function App() {
   const [excalidrawAPI, setExcalidrawAPI] = useState(null);
-  return <Excalidraw excalidrawAPI={(api)=> setExcalidrawAPI(api)} />;
+  return <Excalidraw excalidrawAPI={(api) => setExcalidrawAPI(api)} />;
 }
 ```
 
 You can use this prop when you want to access some [Excalidraw APIs](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/types.ts#L616). We expose the below APIs :point_down:
 
-| API | Signature | Usage |
-| --- | --- | --- |
-| [updateScene](#updatescene) | `function` | updates the scene with the sceneData |
-| [updateLibrary](#updatelibrary) | `function` | updates the library |
-| [addFiles](#addfiles) | `function` | add files data to the appState |
-| [resetScene](#resetscene) | `function` | Resets the scene. If `resetLoadingState` is passed as true then it will also force set the loading state to false. |
-| [getSceneElementsIncludingDeleted](#getsceneelementsincludingdeleted) | `function` | Returns all the elements including the deleted in the scene |
-| [getSceneElements](#getsceneelements) | `function` | Returns all the elements excluding the deleted in the scene |
-| [getAppState](#getappstate) | `function` | Returns current appState |
-| [history](#history) | `object` | This is the history API. `history.clear()` will clear the history |
-| [scrollToContent](#scrolltocontent) | `function` | Scroll the nearest element out of the elements supplied to the center. Defaults to the elements on the scene. |
-| [refresh](#refresh) | `function` | Updates the offsets for the Excalidraw component so that the coordinates are computed correctly (for example the cursor position). |
-| [setToast](#settoast) | `function` | This API can be used to show the toast with custom message. |
-| [id](#id) | `string` | Unique ID for the excalidraw component. |
-| [getFiles](#getfiles) | `function` | This API can be used to get the files present in the scene. |
-| [setActiveTool](#setactivetool) | `function` | This API can be used to set the active tool |
-| [setCursor](#setcursor) | `function` | This API can be used to set customise the mouse cursor on the canvas |
-| [resetCursor](#resetcursor) | `function` | This API can be used to reset to default mouse cursor on the canvas |
-| [toggleSidebar](#toggleSidebar) | `function` | Toggles specific sidebar on/off |
-| [onChange](#onChange) | `function` | Subscribes to change events |
-| [onPointerDown](#onPointerDown) | `function` | Subscribes to `pointerdown` events |
-| [onPointerUp](#onPointerUp) | `function` | Subscribes to `pointerup` events |
+| API                                                                   | Signature  | Usage                                                                                                                              |
+| --------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| [updateScene](#updatescene)                                           | `function` | updates the scene with the sceneData                                                                                               |
+| [updateLibrary](#updatelibrary)                                       | `function` | updates the library                                                                                                                |
+| [addFiles](#addfiles)                                                 | `function` | add files data to the appState                                                                                                     |
+| [resetScene](#resetscene)                                             | `function` | Resets the scene. If `resetLoadingState` is passed as true then it will also force set the loading state to false.                 |
+| [getSceneElementsIncludingDeleted](#getsceneelementsincludingdeleted) | `function` | Returns all the elements including the deleted in the scene                                                                        |
+| [getSceneElements](#getsceneelements)                                 | `function` | Returns all the elements excluding the deleted in the scene                                                                        |
+| [getAppState](#getappstate)                                           | `function` | Returns current appState                                                                                                           |
+| [history](#history)                                                   | `object`   | This is the history API. `history.clear()` will clear the history                                                                  |
+| [scrollToContent](#scrolltocontent)                                   | `function` | Scroll the nearest element out of the elements supplied to the center. Defaults to the elements on the scene.                      |
+| [refresh](#refresh)                                                   | `function` | Updates the offsets for the Excalidraw component so that the coordinates are computed correctly (for example the cursor position). |
+| [setToast](#settoast)                                                 | `function` | This API can be used to show the toast with custom message.                                                                        |
+| [id](#id)                                                             | `string`   | Unique ID for the excalidraw component.                                                                                            |
+| [getFiles](#getfiles)                                                 | `function` | This API can be used to get the files present in the scene.                                                                        |
+| [setActiveTool](#setactivetool)                                       | `function` | This API can be used to set the active tool                                                                                        |
+| [setCursor](#setcursor)                                               | `function` | This API can be used to set customise the mouse cursor on the canvas                                                               |
+| [resetCursor](#resetcursor)                                           | `function` | This API can be used to reset to default mouse cursor on the canvas                                                                |
+| [toggleSidebar](#toggleSidebar)                                       | `function` | Toggles specific sidebar on/off                                                                                                    |
+| [onChange](#onChange)                                                 | `function` | Subscribes to change events                                                                                                        |
+| [onPointerDown](#onPointerDown)                                       | `function` | Subscribes to `pointerdown` events                                                                                                 |
+| [onPointerUp](#onPointerUp)                                           | `function` | Subscribes to `pointerup` events                                                                                                   |
 
 :::info The `Ref` support has been removed in v0.17.0 so if you are using refs, please update the integration to use the `excalidrawAPI`.
 
@@ -60,12 +60,12 @@ Additionally `ready` and `readyPromise` from the API have been discontinued. The
 
 You can use this function to update the scene with the sceneData. It accepts the below attributes.
 
-| Name | Type | Description |
-| --- | --- | --- |
-| `elements` | [`ImportedDataState["elements"]`](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/data/types.ts#L38) | The `elements` to be updated in the scene |
-| `appState` | [`ImportedDataState["appState"]`](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/data/types.ts#L39) | The `appState` to be updated in the scene. |
-| `collaborators` | <code>Map<string, <a href="https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/types.ts#L37">Collaborator></a></code> | The list of collaborators to be updated in the scene. |
-| `captureUpdate` | [`CaptureUpdateAction`](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/store.ts#L40) | Controls which updates should be captured by the `Store`. Captured updates are emmitted and listened to by other components, such as `History` for undo / redo purposes. |
+| Name            | Type                                                                                                                                       | Description                                                                                                                                                              |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `elements`      | [`ImportedDataState["elements"]`](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/data/types.ts#L38)              | The `elements` to be updated in the scene                                                                                                                                |
+| `appState`      | [`ImportedDataState["appState"]`](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/data/types.ts#L39)              | The `appState` to be updated in the scene.                                                                                                                               |
+| `collaborators` | <code>Map<string, <a href="https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/types.ts#L37">Collaborator></a></code> | The list of collaborators to be updated in the scene.                                                                                                                    |
+| `captureUpdate` | [`CaptureUpdateAction`](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/store.ts#L40)                             | Controls which updates should be captured by the `Store`. Captured updates are emmitted and listened to by other components, such as `History` for undo / redo purposes. |
 
 ```jsx live
 function App() {
@@ -128,11 +128,11 @@ You can use the `captureUpdate` to influence undo / redo behaviour.
 
 > **NOTE**: Some updates are not observed by the store / history - i.e. updates to `collaborators` object or parts of `AppState` which are not observed (not `ObservedAppState`). Such updates will never make it to the undo / redo stacks, regardless of the passed `captureUpdate` value.
 
-|  | `captureUpdate` value | Notes |
-| --- | --- | --- |
-| _Immediately undoable_ | `CaptureUpdateAction.IMMEDIATELY` | Use for updates which should be captured. Should be used for most of the local updates. These updates will _immediately_ make it to the local undo / redo stacks. |
-| _Eventually undoable_ | `CaptureUpdateAction.EVENTUALLY` | Use for updates which should not be captured immediately - likely exceptions which are part of some async multi-step process. Otherwise, all such updates would end up being captured with the next `CaptureUpdateAction.IMMEDIATELY` - triggered either by the next `updateScene` or internally by the editor. These updates will _eventually_ make it to the local undo / redo stacks. |
-| _Never undoable_ | `CaptureUpdateAction.NEVER` | Use for updates which should never be recorded, such as remote updates or scene initialization. These updates will _never_ make it to the local undo / redo stacks. |
+|                        | `captureUpdate` value             | Notes                                                                                                                                                                                                                                                                                                                                                                                    |
+| ---------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| _Immediately undoable_ | `CaptureUpdateAction.IMMEDIATELY` | Use for updates which should be captured. Should be used for most of the local updates. These updates will _immediately_ make it to the local undo / redo stacks.                                                                                                                                                                                                                        |
+| _Eventually undoable_  | `CaptureUpdateAction.EVENTUALLY`  | Use for updates which should not be captured immediately - likely exceptions which are part of some async multi-step process. Otherwise, all such updates would end up being captured with the next `CaptureUpdateAction.IMMEDIATELY` - triggered either by the next `updateScene` or internally by the editor. These updates will _eventually_ make it to the local undo / redo stacks. |
+| _Never undoable_       | `CaptureUpdateAction.NEVER`       | Use for updates which should never be recorded, such as remote updates or scene initialization. These updates will _never_ make it to the local undo / redo stacks.                                                                                                                                                                                                                      |
 
 ### updateLibrary
 
@@ -152,13 +152,13 @@ You can use the `captureUpdate` to influence undo / redo behaviour.
 
 You can use this function to update the library. It accepts the below attributes.
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `libraryItems` | [LibraryItemsSource](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/types.ts#L249) | \_ | The `libraryItems` to be replaced/merged with current library |
-| `merge` | boolean | `false` | Whether to merge with existing library items. |
-| `prompt` | boolean | `false` | Whether to prompt user for confirmation. |
-| `openLibraryMenu` | boolean | `false` | Keep the library menu open after library is updated. |
-| `defaultStatus` | <code>"unpublished" &#124; "published"</code> | `"unpublished"` | Default library item's `status` if not present. |
+| Name              | Type                                                                                                         | Default         | Description                                                   |
+| ----------------- | ------------------------------------------------------------------------------------------------------------ | --------------- | ------------------------------------------------------------- |
+| `libraryItems`    | [LibraryItemsSource](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/types.ts#L249) | \_              | The `libraryItems` to be replaced/merged with current library |
+| `merge`           | boolean                                                                                                      | `false`         | Whether to merge with existing library items.                 |
+| `prompt`          | boolean                                                                                                      | `false`         | Whether to prompt user for confirmation.                      |
+| `openLibraryMenu` | boolean                                                                                                      | `false`         | Keep the library menu open after library is updated.          |
+| `defaultStatus`   | <code>"unpublished" &#124; "published"</code>                                                                | `"unpublished"` | Default library item's `status` if not present.               |
 
 ```tsx live
 function App() {
@@ -299,14 +299,14 @@ This is the history API. history.clear() will clear the history.
 
 Scroll the nearest element out of the elements supplied to the center of the viewport. Defaults to the elements on the scene.
 
-| Attribute | type | default | Description |
-| --- | --- | --- | --- |
-| target | [ExcalidrawElement](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/element/types.ts#L115) &#124; [ExcalidrawElement[]](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/element/types.ts#L115) | All scene elements | The element(s) to scroll to. |
-| opts.fitToContent | boolean | false | Whether to fit the elements to viewport by automatically changing zoom as needed. Note that the zoom range is between 10%-100%. |
-| opts.fitToViewport | boolean | false | Similar to fitToContent but the zoom range is not limited. If elements are smaller than the viewport, zoom will go above 100%. |
-| opts.viewportZoomFactor | number | 0.7 | when fitToViewport=true, how much screen should the content cover, between 0.1 (10%) and 1 (100%) |
-| opts.animate | boolean | false | Whether to animate between starting and ending position. Note that for larger scenes the animation may not be smooth due to performance issues. |
-| opts.duration | number | 500 | Duration of the animation if `opts.animate` is `true`. |
+| Attribute               | type                                                                                                                                                                                                                                             | default            | Description                                                                                                                                     |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| target                  | [ExcalidrawElement](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/element/types.ts#L115) &#124; [ExcalidrawElement[]](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/element/types.ts#L115) | All scene elements | The element(s) to scroll to.                                                                                                                    |
+| opts.fitToContent       | boolean                                                                                                                                                                                                                                          | false              | Whether to fit the elements to viewport by automatically changing zoom as needed. Note that the zoom range is between 10%-100%.                 |
+| opts.fitToViewport      | boolean                                                                                                                                                                                                                                          | false              | Similar to fitToContent but the zoom range is not limited. If elements are smaller than the viewport, zoom will go above 100%.                  |
+| opts.viewportZoomFactor | number                                                                                                                                                                                                                                           | 0.7                | when fitToViewport=true, how much screen should the content cover, between 0.1 (10%) and 1 (100%)                                               |
+| opts.animate            | boolean                                                                                                                                                                                                                                          | false              | Whether to animate between starting and ending position. Note that for larger scenes the animation may not be smooth due to performance issues. |
+| opts.duration           | number                                                                                                                                                                                                                                           | 500                | Duration of the animation if `opts.animate` is `true`.                                                                                          |
 
 ## refresh
 
@@ -329,11 +329,11 @@ This API can be used to show the toast with custom message.
   } | null) => void
 ```
 
-| Attribute | type | Description |
-| --- | --- | --- |
-| message | string | The message to be shown on the toast. |
-| closable | boolean | Indicates whether to show the closable button on toast to dismiss the toast. |
-| duration | number | Determines the duration after which the toast should auto dismiss. To prevent autodimiss you can pass `Infinity`. |
+| Attribute | type    | Description                                                                                                       |
+| --------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
+| message   | string  | The message to be shown on the toast.                                                                             |
+| closable  | boolean | Indicates whether to show the closable button on toast to dismiss the toast.                                      |
+| duration  | number  | Determines the duration after which the toast should auto dismiss. To prevent autodimiss you can pass `Infinity`. |
 
 To dismiss an existing toast you can simple pass `null`
 
@@ -362,17 +362,16 @@ This API has the below signature. It sets the `tool` passed in param as the acti
 
 ```ts
 (
-  tool: (
-    | { type: ToolType }
-    | { type: "custom"; customType: string }
-  ) & { locked?: boolean },
+  tool: ({ type: ToolType } | { type: "custom"; customType: string }) & {
+    locked?: boolean;
+  },
 ) => {};
 ```
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `type` | [ToolType](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/types.ts#L91) | `selection` | The tool type which should be set as active tool |
-| `locked` | `boolean` | `false` | Indicates whether the the active tool should be locked. It behaves the same way when using the `lock` tool in the editor interface |
+| Name     | Type                                                                                              | Default     | Description                                                                                                                        |
+| -------- | ------------------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `type`   | [ToolType](https://github.com/excalidraw/excalidraw/blob/master/packages/excalidraw/types.ts#L91) | `selection` | The tool type which should be set as active tool                                                                                   |
+| `locked` | `boolean`                                                                                         | `false`     | Indicates whether the the active tool should be locked. It behaves the same way when using the `lock` tool in the editor interface |
 
 ## setCursor
 

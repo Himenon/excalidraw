@@ -4,10 +4,10 @@ If you implement live collaboration support and want to expose the same UI butto
 
 You'll need to supply `onSelect()` to handle opening of your collaboration dialog, but the button will display `appState.collaborators` count provided you have supplied it.
 
-| Prop | Type | Required | Default | Description |
-| --- | --- | --- | --- | --- |
-| `onSelect` | `function` | Yes |  | Handler called when the user clicks on the button |
-| `isCollaborating` | `boolean` | Yes | false | Whether live collaboration session is in effect. Modifies button style. |
+| Prop              | Type       | Required | Default | Description                                                             |
+| ----------------- | ---------- | -------- | ------- | ----------------------------------------------------------------------- |
+| `onSelect`        | `function` | Yes      |         | Handler called when the user clicks on the button                       |
+| `isCollaborating` | `boolean`  | Yes      | false   | Whether live collaboration session is in effect. Modifies button style. |
 
 ```tsx live
 function App() {
